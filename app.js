@@ -11,8 +11,7 @@ class Book {
 
 class UI {
     static displayBooks() {
-        const storedBooks = [
-            {
+        const storedBooks = [{
                 title: 'Book One',
                 author: 'John Doe',
                 isbn: '252671825363'
@@ -37,9 +36,18 @@ class UI {
         <td>${book.title}</td>
         <td>${book.author}</td>
         <td>${book.isbn}</td>
-        <td><a href="#" class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt"></i>`;
+        <td><a href="#" class="btn btn-danger btn-sm delete"><i class="fas fa-trash-alt delete"></i>`;
 
         list.appendChild(row);
+    }
+
+    static deleteBook(el) {
+
+        if (el.classList.contains('fa-trash-alt')) {
+            el.parentElement.parentElement.parentElement.remove();
+        } else if (el.classList.contains('delete')) {
+            el.parentElement.parentElement.remove();
+        }
     }
 
     static clearFields() {
@@ -59,27 +67,30 @@ document.addEventListener('DOMContentLoaded', UI.displayBooks)
 
 document.querySelector('#book-form'), addEventListener('submit', (e) => {
 
-// Prevent actual submit
+    // Prevent actual submit
 
-e.preventDefault();
+    e.preventDefault();
 
-//Get form Values
-const title = document.querySelector('#title').value;
-const author = document.querySelector('#author').value;
-const isbn = document.querySelector('#isbn').value;
+    //Get form Values
+    const title = document.querySelector('#title').value;
+    const author = document.querySelector('#author').value;
+    const isbn = document.querySelector('#isbn').value;
 
-//instantiate book
+    //instantiate book
 
-const book = new Book(title, author, isbn);
+    const book = new Book(title, author, isbn);
 
-// Add book to UI
+    // Add book to UI
 
-UI.addBookToList(book);
+    UI.addBookToList(book);
 
-// Clear fields
+    // Clear fields
 
-UI.clearFields();
+    UI.clearFields();
 
 });
 //Event: remove a book
 
+document.querySelector('#book-list').addEventListener('click', (e) => {
+    UI.deleteBook(e.target)
+});
