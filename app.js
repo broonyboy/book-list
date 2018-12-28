@@ -102,13 +102,20 @@ document.querySelector('#book-form'), addEventListener('submit', (e) => {
 
         UI.addBookToList(book);
 
+         // Display successfull message
+
+         UI.showAlert("Book added Succesfully", 'success');
+
         // Clear fields
 
         UI.clearFields();
+
+       
     }
 });
 //Event: remove a book
 
 document.querySelector('#book-list').addEventListener('click', (e) => {
-    UI.deleteBook(e.target)
+    UI.deleteBook(e.target);
+    UI.showAlert("Book Successfully Removed", 'warning');
 });
